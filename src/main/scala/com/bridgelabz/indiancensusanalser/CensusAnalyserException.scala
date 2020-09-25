@@ -5,4 +5,5 @@ class CensusAnalyserException(message:CensusAnalyzerExceptionEnums.Value) extend
   object CensusAnalyzerExceptionEnums extends Enumeration {
     type CensusAnalyserException = Value
     val inCorrectFilePath = Value("Incorrect File Path provided")
+    val inCorrectFileType = Value("Incorrect File Type provided")
   }
