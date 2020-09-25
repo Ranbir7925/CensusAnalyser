@@ -14,8 +14,15 @@ class CensusAnalyser {
       var countRow = 0
       for (line <- fileReader.getLines()) {
         val cols = line.split(",").map(_.trim)
+
         if (cols.length != 4){
           throw new CensusAnalyserException(CensusAnalyzerExceptionEnums.inCorrectDelimiter)
+        }
+
+        if (countRow == 0){
+          if(cols(0) != "State" || cols(1) != "Population" || cols(2) != "AreaInSqKm" || cols(3) != "DensityPerSqKm"){
+            throw new CensusAnalyserException(CensusAnalyzerExceptionEnums.inCorrectHeaders)
+          }
         }
         countRow += 1
       }
