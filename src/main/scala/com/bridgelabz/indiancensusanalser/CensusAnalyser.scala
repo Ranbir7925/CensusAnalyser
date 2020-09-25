@@ -12,7 +12,11 @@ class CensusAnalyser {
       }
       val fileReader = Source.fromFile(filePath)
       var countRow = 0
-      for (_ <- fileReader.getLines()) {
+      for (line <- fileReader.getLines()) {
+        val cols = line.split(",").map(_.trim)
+        if (cols.length != 4){
+          throw new CensusAnalyserException(CensusAnalyzerExceptionEnums.inCorrectDelimiter)
+        }
         countRow += 1
       }
       countRow - 1
