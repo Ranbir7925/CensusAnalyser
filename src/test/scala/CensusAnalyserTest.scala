@@ -6,6 +6,7 @@ class CensusAnalyserTest extends FunSuite {
   val WRONG_CSV_FILE_PATH  = "./src/resources/IndiaStateCensusData.csv"
   val WRONG_CSV_FILE_TYPE_PATH  = "./src/test/resources/IndiaStateCensusData.txt"
   val INVALID_DELIMITER_FILE_PATH = "./src/test/resources/InvalidDelimitersIndiaStateCensusData.csv"
+  val INVALID_HEADER_FILE_PATH = "./src/test/resources/InvalidHeadersIndiaStateCensusData.csv"
 
   test("given_IndianCensusCSVFile_ShouldReturnCorrectRecords") {
     val objCensus = new CensusAnalyser()
@@ -33,5 +34,13 @@ class CensusAnalyserTest extends FunSuite {
       objCensus.loadIndiaCensusData(INVALID_DELIMITER_FILE_PATH)
     }
     assert(throws.getMessage == CensusAnalyzerExceptionEnums.inCorrectDelimiter.toString)
+  }
+
+  test("givenIndianCensusDataCSVFile_WhenWithWrongHeaders_ShouldThrowException"){
+    val throws = intercept[Exception]{
+      val objCensus = new CensusAnalyser
+      objCensus.loadIndiaCensusData(INVALID_HEADER_FILE_PATH)
+    }
+    assert(throws.getMessage == CensusAnalyzerExceptionEnums.inCorrectHeaders.toString)
   }
 }
