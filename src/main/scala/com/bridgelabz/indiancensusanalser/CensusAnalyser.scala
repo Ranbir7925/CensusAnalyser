@@ -1,5 +1,7 @@
 package com.bridgelabz.indiancensusanalser
 
+import java.io.FileNotFoundException
+
 import scala.io.Source
 
 class CensusAnalyser {
@@ -13,8 +15,9 @@ class CensusAnalyser {
       countRow - 1
     }
     catch {
-      case ex: Exception => println(ex)
+      case ex: FileNotFoundException => throw new CensusAnalyserException(CensusAnalyzerExceptionEnums.inCorrectFilePath)
         1
+
     }
   }
 }
