@@ -39,5 +39,12 @@ class CensusAnalyser {
     val csvToBean = csvToBeanBuilder.build()
     csvToBean.iterator()
   }
-
+  def getRowCount[A](commonIterator:util.Iterator[A]):Int= {
+    var count = 0
+    while (commonIterator.hasNext()) {
+      count += 1
+      commonIterator.next()
+    }
+    count
+  }
 }
