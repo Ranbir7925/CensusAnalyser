@@ -6,7 +6,8 @@ import java.util
 import com.opencsv.bean.CsvToBeanBuilder
 
 class OpenCSVBuilder[A] extends TraitCSVBuilder {
-  def getCSVFileIterator[A](reader: Reader, csvClass: Class[A]): util.Iterator[A]= {
+  @throws[CSVBuilderException]
+  def getCSVFileIterator[A](reader: Reader, csvClass: Class[A]): util.Iterator[A]  = {
     try {
       val csvToBeanBuilder = new CsvToBeanBuilder[A](reader)
       csvToBeanBuilder.withType(csvClass).withIgnoreLeadingWhiteSpace(true)

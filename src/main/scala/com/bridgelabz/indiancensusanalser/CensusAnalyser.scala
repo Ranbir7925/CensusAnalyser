@@ -9,14 +9,13 @@ class CensusAnalyser {
         throw new CensusAnalyserException(CensusAnalyzerExceptionEnums.inCorrectFileType)
       }
       val reader = Files.newBufferedReader(Paths.get(filePath))
-//      val censusCSVIterator = new OpenCSVBuilder getCSVFileIterator(reader, classOf[IndiaCensusCSV])
       val csvBuilder = CSVBuilderFactory.createCSVBuilder()
       val censusCSVIterator = csvBuilder.getCSVFileIterator(reader,classOf[IndiaCensusCSV])
       getRowCount(censusCSVIterator)
 
     }
     catch {
-      case ex: FileNotFoundException => throw new CensusAnalyserException(CensusAnalyzerExceptionEnums.inCorrectFilePath)
+      case _: CSVBuilderException => throw new CensusAnalyserException(CensusAnalyzerExceptionEnums.inCorrectFilePath)
     }
   }
 
@@ -31,7 +30,7 @@ class CensusAnalyser {
       getRowCount(censusCSVIterator)
     }
     catch {
-      case ex: FileNotFoundException => throw new CensusAnalyserException(CensusAnalyzerExceptionEnums.inCorrectFilePath)
+      case _: CSVBuilderException => throw new CensusAnalyserException(CensusAnalyzerExceptionEnums.inCorrectFilePath)
     }
   }
 
