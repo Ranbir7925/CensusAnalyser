@@ -1,5 +1,4 @@
 package com.bridgelabz.indiancensusanalser
-import java.io.FileNotFoundException
 import java.nio.file.{Files, Paths}
 import java.util
 class CensusAnalyser {
@@ -10,8 +9,8 @@ class CensusAnalyser {
       }
       val reader = Files.newBufferedReader(Paths.get(filePath))
       val csvBuilder = CSVBuilderFactory.createCSVBuilder()
-      val censusCSVIterator = csvBuilder.getCSVFileIterator(reader,classOf[IndiaCensusCSV])
-      getRowCount(censusCSVIterator)
+      val censusCSVList = csvBuilder.getCSVFileList(reader,classOf[IndiaCensusCSV])
+      censusCSVList.size()
 
     }
     catch {
@@ -26,20 +25,22 @@ class CensusAnalyser {
       }
       val reader = Files.newBufferedReader(Paths.get(filePath))
       val csvBuilder = CSVBuilderFactory.createCSVBuilder()
-      val censusCSVIterator = csvBuilder.getCSVFileIterator(reader,classOf[IndiaStateCodeCSV])
-      getRowCount(censusCSVIterator)
+//      val censusCSVIterator = csvBuilder.getCSVFileIterator(reader,classOf[IndiaStateCodeCSV])
+//      getRowCount(censusCSVIterator)
+      val censusCSVList = csvBuilder.getCSVFileList(reader,classOf[IndiaStateCodeCSV])
+      censusCSVList.size()
     }
     catch {
       case _: CSVBuilderException => throw new CensusAnalyserException(CensusAnalyzerExceptionEnums.inCorrectFilePath)
     }
   }
 
-  def getRowCount[A](commonIterator:util.Iterator[A]):Int= {
-    var count = 0
-    while (commonIterator.hasNext()) {
-      count += 1
-      commonIterator.next()
-    }
-    count
-  }
+//  def getRowCount[A](commonIterator:util.Iterator[A]):Int= {
+//    var count = 0
+//    while (commonIterator.hasNext()) {
+//      count += 1
+//      commonIterator.next()
+//    }
+//    count
+//  }
 }
