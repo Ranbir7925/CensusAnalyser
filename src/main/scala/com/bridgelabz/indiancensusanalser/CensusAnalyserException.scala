@@ -4,8 +4,8 @@ class CensusAnalyserException(message:CensusAnalyzerExceptionEnums.Value) extend
 
   object CensusAnalyzerExceptionEnums extends Enumeration {
     type CensusAnalyserException = Value
+
     val inCorrectFilePath = Value("Incorrect File Path provided")
     val inCorrectFileType = Value("Incorrect File Type provided")
-    val inCorrectDelimiter = Value("Incorrect Delimiter")
-    val inCorrectHeaders = Value("Incorrect Headers")
+    val unableToParse = Value("Not able to Parse Invalid Delimiter or Fields")
   }
