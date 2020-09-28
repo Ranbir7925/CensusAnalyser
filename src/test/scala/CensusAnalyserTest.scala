@@ -94,5 +94,11 @@ class CensusAnalyserTest extends FunSuite {
     assert(censusCSV(0).state == "Andhra Pradesh")
   }
 
-
+  test("givenIndianCensusData_whenEmptyData_shouldReturnException"){
+    val objCensus =  new CensusAnalyser
+    val throws = intercept[Exception]{
+      objCensus.getStateWiseSortedStatesData()
+    }
+    assert(throws.getMessage == CensusAnalyzerExceptionEnums.noCensusData.toString)
+  }
 }
