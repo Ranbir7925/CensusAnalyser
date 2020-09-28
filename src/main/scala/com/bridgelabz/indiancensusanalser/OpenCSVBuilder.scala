@@ -13,22 +13,22 @@ class OpenCSVBuilder[A] extends TraitCSVBuilder {
       csvToBean.iterator()
     }
     catch {
-      case _: Exception => throw new CensusAnalyserException(CensusAnalyzerExceptionEnums.unableToParse)
+      case _: RuntimeException => throw new CensusAnalyserException(CensusAnalyzerExceptionEnums.unableToParse)
     }
   }
 
-  @throws[CSVBuilderException]
+
   def getCSVFileList[A](reader: Reader, csvClass: Class[A]): util.List[A] = {
     try {
       val csvToBean = getCSVBean(reader, csvClass)
       csvToBean.parse()
     }
     catch {
-      case _: Exception => throw new CensusAnalyserException(CensusAnalyzerExceptionEnums.unableToParse)
+      case _: RuntimeException => throw new CensusAnalyserException(CensusAnalyzerExceptionEnums.unableToParse)
     }
   }
 
-  @throws[CSVBuilderException]
+
   def getCSVBean[A](reader: Reader, csvClass: Class[A]): CsvToBean[A] = {
     try {
       val csvToBeanBuilder = new CsvToBeanBuilder[A](reader)
@@ -37,7 +37,7 @@ class OpenCSVBuilder[A] extends TraitCSVBuilder {
       csvToBean
     }
     catch {
-      case _: Exception => throw new CensusAnalyserException(CensusAnalyzerExceptionEnums.unableToParse)
+      case _: RuntimeException => throw new CensusAnalyserException(CensusAnalyzerExceptionEnums.unableToParse)
     }
   }
 }

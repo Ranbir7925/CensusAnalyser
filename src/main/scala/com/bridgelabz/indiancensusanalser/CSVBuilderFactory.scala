@@ -1,7 +1,7 @@
 package com.bridgelabz.indiancensusanalser
 
 object CSVBuilderFactory {
-  def createCSVBuilder()={
+  def createCSVBuilder() = {
     new OpenCSVBuilder()
   }
 }
