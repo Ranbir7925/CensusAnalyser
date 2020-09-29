@@ -62,12 +62,21 @@ class CensusAnalyser {
     sort(censusComparator)
   }
 
-  def getCountRows[T](fileIterator: util.Iterator[T]):Int = {
-    var countRows = 0
-    while(fileIterator.hasNext()) {
-      countRows += 1
-      fileIterator.next()
+  def getPopulationDensityWiseSortedCensusData():String = {
+    val censusComparator = new Comparator[IndiaStateCensusDAO] {
+      override def compare(o1: IndiaStateCensusDAO, o2: IndiaStateCensusDAO): Int = {
+        o1.densityPerSqKm.compareTo(o2.densityPerSqKm)
+      }
     }
-    countRows
+    sort(censusComparator.reversed())
   }
+//
+//  def getCountRows[T](fileIterator: util.Iterator[T]):Int = {
+//    var countRows = 0
+//    while(fileIterator.hasNext()) {
+//      countRows += 1
+//      fileIterator.next()
+//    }
+//    countRows
+//  }
 }
