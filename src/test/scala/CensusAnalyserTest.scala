@@ -89,15 +89,36 @@ class CensusAnalyserTest extends FunSuite {
   test("givenIndianCensusData_whenSortedByState_shouldReturnSortedResult"){
     val objCensus = new CensusAnalyser
     objCensus.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH)
-    val sortedCensusData = objCensus.getStateWiseSortedStatesData()
+    val sortedCensusData = objCensus.getStateWiseSortedCensusData()
+
     val censusCSV = new Gson().fromJson(sortedCensusData,classOf[Array[IndiaCensusCSV]])
     assert(censusCSV(0).state == "Andhra Pradesh")
+    assert(censusCSV.last.state == "West Bengal")
   }
 
   test("givenIndianCensusData_whenEmptyData_shouldReturnException"){
     val objCensus =  new CensusAnalyser
     val throws = intercept[Exception]{
-      objCensus.getStateWiseSortedStatesData()
+      objCensus.getStateCodeWiseSortedCensusData()
+    }
+    assert(throws.getMessage == CensusAnalyzerExceptionEnums.noCensusData.toString)
+  }
+
+  test("givenIndianCensusDataAndStateDate_whenSortedByState_shouldReturnSortedResult"){
+    val objCensus = new CensusAnalyser
+    objCensus.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH)
+    objCensus.loadIndiaStateCode(INDIA_STATE_CODE_CSV_FILE_PATH)
+
+    val sortedCensusData = objCensus.getStateCodeWiseSortedCensusData()
+
+    val censusCSV = new Gson().fromJson(sortedCensusData,classOf[Array[IndiaCensusCSV]])
+    assert(censusCSV(0).state == "Andhra Pradesh")
+    assert(censusCSV.last.state == "West Bengal")
+  }
+  test("givenIndianStateData_whenEmptyData_shouldReturnException"){
+    val objCensus = new CensusAnalyser()
+    val throws = intercept[Exception]{
+     objCensus.getStateCodeWiseSortedCensusData()
     }
     assert(throws.getMessage == CensusAnalyzerExceptionEnums.noCensusData.toString)
   }
