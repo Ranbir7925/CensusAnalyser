@@ -81,12 +81,12 @@ class CensusAnalyser {
     sort(censusComparator.reversed())
   }
 
-  def getAreaWiseSortedCensusData():String = {
+  def getAreaWiseSortedCensusData(): String = {
     val censusComparator = new Comparator[IndiaStateCensusDAO] {
       override def compare(o1: IndiaStateCensusDAO, o2: IndiaStateCensusDAO): Int = {
-      o1.areaInSqKm.compareTo(o2.areaInSqKm)
+        o1.areaInSqKm.compareTo(o2.areaInSqKm)
       }
     }
     sort(censusComparator.reversed())
-    }
+  }
 }
