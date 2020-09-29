@@ -1,8 +1,6 @@
 package com.bridgelabz.indiancensusanalser
-
+import com.opencsv.bean.CsvBindByName
 case class IndiaCensusCSV() {
-
-  import com.opencsv.bean.CsvBindByName
 
   @CsvBindByName(column = "State", required = true)
   var state: String = null
@@ -18,6 +16,4 @@ case class IndiaCensusCSV() {
     ", Population='" + population + '\'' +
     ", AreaInSqKm='" + areaInSqKm + '\'' +
     ", DensityPerSqKm='" + densityPerSqKm + '\'' + '}'
-
-
 }

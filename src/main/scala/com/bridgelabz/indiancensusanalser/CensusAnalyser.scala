@@ -1,14 +1,10 @@
 package com.bridgelabz.indiancensusanalser
 
-import java.util.Comparator
-
 import com.google.gson.Gson
 
-
 class CensusAnalyser {
-  var censusMap: Map[String, IndiaStateCensusDAO] = Map()
-  var censusStateMap: Map[String, IndiaStateCensusDAO] = Map()
-
+  var censusMap: Map[String, CensusDAO] = Map()
+  var censusStateMap: Map[String, CensusDAO] = Map()
 
   def loadIndiaCensusData(filePath: String): Int = {
     censusMap = new CensusLoader().loadData(classOf[IndiaCensusCSV], filePath)
@@ -20,73 +16,48 @@ class CensusAnalyser {
     censusStateMap.size
   }
 
+  def loadCensusUSData(filePath: String):Int={
+    censusMap = new CensusLoader().loadData(classOf[USCensusDTO],filePath)
+    censusMap.size
+  }
 
-  def sort(censusComparator: Comparator[IndiaStateCensusDAO]): String = {
+  def sort(choice: Int): String = {
     if (censusMap == null || censusMap.size == 0) {
       throw new CensusAnalyserException(CensusAnalyzerExceptionEnums.noCensusData)
     }
-    val size = censusMap.size
-    val censusCSVList = censusMap.values.toArray
-    for (counter <- 0 until size - 1) {
-      for (secondCounter <- 0 until size - counter - 1) {
-        val census1 = censusCSVList(secondCounter)
-        val census2 = censusCSVList(secondCounter + 1)
-        if (censusComparator.compare(census1, census2) > 0) {
-          censusCSVList(secondCounter) = census2
-          censusCSVList(secondCounter + 1) = census1
-        }
-      }
+    var censusCSVList = censusMap.values.toArray
+    censusCSVList = choice match {
+      case 1 => censusCSVList.sortBy(_.state)
+      case 2 => censusCSVList.sortBy(_.stateCode)
+      case 3 => censusCSVList.sortBy(_.population).reverse
+      case 4 => censusCSVList.sortBy(_.populationDensity).reverse
+      case 5 => censusCSVList.sortBy(_.totalArea).reverse
     }
     val sortedStateCensusCensus = new Gson().toJson(censusCSVList)
     sortedStateCensusCensus
   }
 
-  def getStateCodeWiseSortedCensusData(): String = {
+  def getStateWiseSortedCensusData: String = {
+    sort(1)
+  }
+
+  def getStateCodeWiseSortedCensusData: String = {
     for (stateNameCensus <- censusMap.keys; stateName <- censusStateMap.keys; if (stateName.equals(stateNameCensus)) == true) {
       val censusData = censusMap(stateNameCensus)
       censusData.stateCode = censusStateMap(stateName).stateCode
     }
-    val censusComparator = new Comparator[IndiaStateCensusDAO] {
-      override def compare(o1: IndiaStateCensusDAO, o2: IndiaStateCensusDAO): Int = {
-        o1.stateCode.compareTo(o2.stateCode)
-      }
-    }
-    sort(censusComparator)
+    sort(2)
   }
 
-  def getStateWiseSortedCensusData(): String = {
-    val censusComparator = new Comparator[IndiaStateCensusDAO] {
-      override def compare(o1: IndiaStateCensusDAO, o2: IndiaStateCensusDAO): Int = {
-        o1.state.compareTo(o2.state)
-      }
-    }
-    sort(censusComparator)
+  def getPopulationWiseSortedCensusData: String = {
+    sort(3)
   }
 
-  def getPopulationDensityWiseSortedCensusData(): String = {
-    val censusComparator = new Comparator[IndiaStateCensusDAO] {
-      override def compare(o1: IndiaStateCensusDAO, o2: IndiaStateCensusDAO): Int = {
-        o1.densityPerSqKm.compareTo(o2.densityPerSqKm)
-      }
-    }
-    sort(censusComparator.reversed())
+  def getPopulationDensityWiseSortedCensusData: String = {
+    sort(4)
   }
 
-  def getPopulationWiseSortedCensusData(): String = {
-    val censusComparator = new Comparator[IndiaStateCensusDAO] {
-      override def compare(o1: IndiaStateCensusDAO, o2: IndiaStateCensusDAO): Int = {
-        o1.population.compareTo(o2.population)
-      }
-    }
-    sort(censusComparator.reversed())
-  }
-
-  def getAreaWiseSortedCensusData(): String = {
-    val censusComparator = new Comparator[IndiaStateCensusDAO] {
-      override def compare(o1: IndiaStateCensusDAO, o2: IndiaStateCensusDAO): Int = {
-        o1.areaInSqKm.compareTo(o2.areaInSqKm)
-      }
-    }
-    sort(censusComparator.reversed())
+  def getAreaWiseSortedCensusData: String = {
+    sort(5)
   }
 }

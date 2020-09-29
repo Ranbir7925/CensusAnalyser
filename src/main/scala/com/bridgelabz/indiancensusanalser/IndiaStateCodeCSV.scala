@@ -13,5 +13,9 @@ case class IndiaStateCodeCSV() {
   @CsvBindByName(column = "StateCode", required = true)
   var stateCode: String = null
 
-  override def toString: String = "IndiaStateCodeCSV{" + "SrNo='" + SrNo + '\'' + ", state='" + sateName + '\'' + ", TIN='" + TIN + '\'' + ", stateCode='" + stateCode + '\'' + '}'
+  override def toString: String = "IndiaStateCodeCSV{" +
+    "SrNo='" + SrNo + '\'' +
+    ", state='" + sateName + '\'' +
+    ", TIN='" + TIN + '\'' +
+    ", stateCode='" + stateCode + '\'' + '}'
 }
