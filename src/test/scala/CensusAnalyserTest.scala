@@ -150,4 +150,14 @@ class CensusAnalyserTest extends FunSuite {
     }
     assert(throws.getMessage == CensusAnalyzerExceptionEnums.noCensusData.toString)
   }
+
+  test("givenIndianCensusDataAndStateDate_whenSortedByArea_shouldReturnSortedResult"){
+    val objCensus = new CensusAnalyser()
+    objCensus.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH)
+    val sortedCensusData = objCensus.getAreaWiseSortedCensusData()
+
+    val censusCSV = new Gson().fromJson(sortedCensusData,classOf[Array[IndiaCensusCSV]])
+    assert(censusCSV(0).state== "Rajasthan")
+    assert(censusCSV.last.state == "Goa")
+  }
 }
