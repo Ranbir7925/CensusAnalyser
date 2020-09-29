@@ -1,6 +1,7 @@
 package com.bridgelabz.indiancensusanalser
-import java.util
+
 import java.util.Comparator
+
 import com.google.gson.Gson
 
 
@@ -40,16 +41,16 @@ class CensusAnalyser {
     sortedStateCensusCensus
   }
 
-  def getStateCodeWiseSortedCensusData():String={
-    for (stateNameCensus <- censusMap.keys;stateName <- censusStateMap.keys;if (stateName.equals(stateNameCensus))==true){
+  def getStateCodeWiseSortedCensusData(): String = {
+    for (stateNameCensus <- censusMap.keys; stateName <- censusStateMap.keys; if (stateName.equals(stateNameCensus)) == true) {
       val censusData = censusMap(stateNameCensus)
       censusData.stateCode = censusStateMap(stateName).stateCode
     }
-      val censusComparator = new Comparator[IndiaStateCensusDAO] {
-        override def compare(o1: IndiaStateCensusDAO, o2: IndiaStateCensusDAO): Int = {
-          o1.stateCode.compareTo(o2.stateCode)
-        }
+    val censusComparator = new Comparator[IndiaStateCensusDAO] {
+      override def compare(o1: IndiaStateCensusDAO, o2: IndiaStateCensusDAO): Int = {
+        o1.stateCode.compareTo(o2.stateCode)
       }
+    }
     sort(censusComparator)
   }
 
@@ -62,7 +63,7 @@ class CensusAnalyser {
     sort(censusComparator)
   }
 
-  def getPopulationDensityWiseSortedCensusData():String = {
+  def getPopulationDensityWiseSortedCensusData(): String = {
     val censusComparator = new Comparator[IndiaStateCensusDAO] {
       override def compare(o1: IndiaStateCensusDAO, o2: IndiaStateCensusDAO): Int = {
         o1.densityPerSqKm.compareTo(o2.densityPerSqKm)
@@ -70,13 +71,13 @@ class CensusAnalyser {
     }
     sort(censusComparator.reversed())
   }
-//
-//  def getCountRows[T](fileIterator: util.Iterator[T]):Int = {
-//    var countRows = 0
-//    while(fileIterator.hasNext()) {
-//      countRows += 1
-//      fileIterator.next()
-//    }
-//    countRows
-//  }
+
+  def getPopulationWiseSortedCensusData(): String = {
+    val censusComparator = new Comparator[IndiaStateCensusDAO] {
+      override def compare(o1: IndiaStateCensusDAO, o2: IndiaStateCensusDAO): Int = {
+        o1.population.compareTo(o2.population)
+      }
+    }
+    sort(censusComparator.reversed())
+  }
 }
