@@ -1,6 +1,8 @@
 package com.bridgelabz.indiancensusanalser
+
 import com.opencsv.bean.CsvBindByName
-case class IndiaCensusCSV() {
+
+class IndiaCensusDTO() {
 
   @CsvBindByName(column = "State", required = true)
   var state: String = null

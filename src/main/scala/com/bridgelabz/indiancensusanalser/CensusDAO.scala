@@ -11,7 +11,7 @@ class CensusDAO {
   var landArea:Double = 0
   var housingDensity:Double = 0
 
-  def this(indiaCensusCSV: IndiaCensusCSV){
+  def this(indiaCensusCSV: IndiaCensusDTO){
     this()
     state=indiaCensusCSV.state
     totalArea=indiaCensusCSV.areaInSqKm
@@ -19,9 +19,9 @@ class CensusDAO {
     population=indiaCensusCSV.population
   }
 
-  def this(indiaStateCodeCSV: IndiaStateCodeCSV){
+  def this(indiaStateCodeCSV: IndiaStateCodeDTO){
     this()
-    state=indiaStateCodeCSV.sateName
+    state=indiaStateCodeCSV.stateName
     stateCode= indiaStateCodeCSV.stateCode
   }
 

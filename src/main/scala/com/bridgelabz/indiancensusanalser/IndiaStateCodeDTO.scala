@@ -1,13 +1,14 @@
 package com.bridgelabz.indiancensusanalser
 
-case class IndiaStateCodeCSV() {
+import com.opencsv.bean.CsvBindByName
 
-  import com.opencsv.bean.CsvBindByName
+class IndiaStateCodeDTO {
+
 
   @CsvBindByName(column = "SrNo", required = true)
   var SrNo: String = null
   @CsvBindByName(column = "State Name", required = true)
-  var sateName: String = null
+  var stateName: String = null
   @CsvBindByName(column = "TIN", required = true)
   var TIN: Int = 0
   @CsvBindByName(column = "StateCode", required = true)
@@ -15,7 +16,7 @@ case class IndiaStateCodeCSV() {
 
   override def toString: String = "IndiaStateCodeCSV{" +
     "SrNo='" + SrNo + '\'' +
-    ", state='" + sateName + '\'' +
+    ", state='" + stateName + '\'' +
     ", TIN='" + TIN + '\'' +
     ", stateCode='" + stateCode + '\'' + '}'
 }
