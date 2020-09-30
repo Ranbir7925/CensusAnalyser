@@ -1,8 +1,7 @@
 package com.bridgelabz.indiancensusanalser
 
-class Country extends Enumeration {
-  type County = Value
+object Country extends Enumeration {
+  type Country = Value
   val India = Value("India")
   val USA = Value("USA")
-
 }

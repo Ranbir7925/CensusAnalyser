@@ -1,5 +1,5 @@
 package com.bridgelabz.indiancensusanalser
-
+import com.bridgelabz.indiancensusanalser.Country.Country
 import java.nio.file.{Files, NoSuchFileException, Paths}
 import java.util
 
@@ -14,13 +14,16 @@ class CensusLoader {
       var censusMap: Map[String, CensusDAO] = Map()
       val readerStateCensus = Files.newBufferedReader(Paths.get(filePaths(0)))
       val csvBuilderStateCensus = CSVBuilderFactory.createCSVBuilder()
-      if (country.equals(country.India)) {
+      if (country.equals(Country.India)) {
         val censusCSVIteratorStateCensus: util.Iterator[IndiaCensusDTO] = csvBuilderStateCensus.getCSVFileIterator(readerStateCensus, classOf[IndiaCensusDTO])
         censusCSVIteratorStateCensus.forEachRemaining { objDAO => censusMap += (objDAO.state -> new CensusDAO(objDAO)) }
       }
-      else if (country.equals(country.USA)) {
+      else if (country.equals(Country.USA)) {
         val UScensusCSVIterator: util.Iterator[USCensusDTO] = csvBuilderStateCensus.getCSVFileIterator(readerStateCensus, classOf[USCensusDTO])
         UScensusCSVIterator.forEachRemaining { objDAO => censusMap += (objDAO.state -> new CensusDAO(objDAO)) }
+      }
+      else {
+        throw new CensusAnalyserException(CensusAnalyzerExceptionEnums.invalidCountry)
       }
       if (filePaths.length == 1) {
         return censusMap

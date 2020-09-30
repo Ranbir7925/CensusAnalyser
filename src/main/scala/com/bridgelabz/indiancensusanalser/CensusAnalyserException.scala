@@ -9,4 +9,5 @@ object CensusAnalyzerExceptionEnums extends Enumeration {
   val inCorrectFileType = Value("Incorrect File Type provided")
   val unableToParse = Value("Not able to Parse Invalid Delimiter or Fields")
   val noCensusData = Value("Not Data available")
+  val invalidCountry = Value("The Country name is Invalid")
 }
