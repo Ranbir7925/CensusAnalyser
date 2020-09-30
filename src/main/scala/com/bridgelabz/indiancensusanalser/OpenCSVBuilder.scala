@@ -17,7 +17,6 @@ class OpenCSVBuilder[A] extends TraitCSVBuilder {
     }
   }
 
-
   def getCSVFileList[A](reader: Reader, csvClass: Class[A]): util.List[A] = {
     try {
       val csvToBean = getCSVBean(reader, csvClass)
@@ -27,7 +26,6 @@ class OpenCSVBuilder[A] extends TraitCSVBuilder {
       case _: RuntimeException => throw new CensusAnalyserException(CensusAnalyzerExceptionEnums.unableToParse)
     }
   }
-
 
   def getCSVBean[A](reader: Reader, csvClass: Class[A]): CsvToBean[A] = {
     try {

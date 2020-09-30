@@ -1,12 +1,13 @@
 package com.bridgelabz.indiancensusanalser
+
 import com.bridgelabz.indiancensusanalser.Country.Country
 import com.google.gson.Gson
 
 class CensusAnalyser {
   var censusMap: Map[String, CensusDAO] = Map()
 
-  def loadCensusData(country: Country,filepath:String*): Int = {
-    censusMap = new CensusLoader().loadData(country,filepath)
+  def loadCensusData(country: Country, filepath: String*): Int = {
+    censusMap = new CensusLoader().loadData(country, filepath)
     censusMap.size
   }
 
@@ -32,7 +33,7 @@ class CensusAnalyser {
 
   def getStateCodeWiseSortedCensusData: String = {
     sort(2)
-    }
+  }
 
   def getPopulationWiseSortedCensusData: String = {
     sort(3)
