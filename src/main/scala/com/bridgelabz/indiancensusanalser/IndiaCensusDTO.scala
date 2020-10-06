@@ -2,6 +2,9 @@ package com.bridgelabz.indiancensusanalser
 
 import com.opencsv.bean.CsvBindByName
 
+/**
+ * Class Binds Data to form Json format
+ */
 class IndiaCensusDTO() {
 
   @CsvBindByName(column = "State", required = true)
@@ -13,6 +16,10 @@ class IndiaCensusDTO() {
   @CsvBindByName(column = "DensityPerSqKm", required = true)
   var densityPerSqKm: Int = 0
 
+  /**
+   * overrides objects to form string representation of an object
+   * @return String
+   */
   override def toString: String = "IndiaCensusCSV{" +
     "State='" + state + '\'' +
     ", Population='" + population + '\'' +

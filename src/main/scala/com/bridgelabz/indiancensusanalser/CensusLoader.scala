@@ -3,7 +3,16 @@ import com.bridgelabz.indiancensusanalser.Country.Country
 import java.nio.file.{Files, NoSuchFileException, Paths}
 import java.util
 
+import com.bridgelab.csvbuilder.{CSVBuilderException, CSVBuilderFactory}
+
+
 class CensusLoader {
+  /**
+   *
+   * @param country Enum Value
+   * @param filePaths Take File Paths
+   * @return Map key value pair type value
+   */
   def loadData[A](country:Country, filePaths:Seq[String]): Map[String, CensusDAO] = {
     try {
       for (filePath <- filePaths) {
@@ -36,6 +45,11 @@ class CensusLoader {
       case _: CSVBuilderException => throw new CensusAnalyserException(CensusAnalyzerExceptionEnums.unableToParse)
     }
   }
+
+  /**
+   * Function Loads Data for StateCod
+   * @return Map,key value pair type value
+   */
   def loadStateCode(censusMap:Map[String,CensusDAO],filePath:String): Map[String,CensusDAO]={
     try {
       val readerStateCode = Files.newBufferedReader(Paths.get(filePath))
